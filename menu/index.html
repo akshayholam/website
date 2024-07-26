@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+
+  </style>
+
+</head>
+
+<body style="height:1500px">
+
+  <div class="container" style="margin-top:120px;">
+    <ul class="nav nav-pills navbar-fixed-top">
+      <div class="heading">
+        <h2 class="maintag">Waiting For Your Order</h2>
+        <img class="logo" src="img/logo.png" alt="logo" style="width: 45px;">
+      </div>
+      
+      <li class="active"><a data-toggle="pill" href="#home">All</a></li>
+      <li><a data-toggle="pill" href="#special">Special</a></li>
+      <li><a data-toggle="pill" href="#noodles">Noodles</a></li>
+      <li><a data-toggle="pill" href="#Rise">Rice</a></li>
+    </ul>
+  </div>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active"></div>
+    <div id="special" class="tab-pane fade">
+      <div id="special"></div>
+    </div>
+    <div id="noodles" class="tab-pane fade">
+      <div id="noodles"></div>
+    </div>
+    <div id="Rise" class="tab-pane fade">
+      <div id="Rise"></div>
+    </div>
+  </div>
+
+  <!-- Floating button -->
+  <div class="fbtn">
+    <div class="floating-btn phone" id="open-popup"></div>
+    <div class="floating-btn instagram" id="open-instagram"></div>
+    <div class="floating-btn whatsapp" id="open-whatsapp"></div>
+  </div>
+
+  <!-- Popup -->
+  <div class="popup" id="popup">
+    <span class="popup-close" id="close-popup">&times;</span>
+    <div class="popup-content">
+      <div class="row popimg">
+        <img src="img/logo2.png" alt="" width="150px">
+      </div>
+      <div class="row">
+        <span class="name">Rajesh Tibhe</span>
+        <button class="call-btn callrajesh">Call</button>
+      </div>
+      <div class="row">
+        <span class="name">Yesh Chandole</span>
+        <button class="call-btn callyash">Call</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script>
+    $(function () {
+      // Function to show popup
+      $('#open-popup').click(function () {
+        $('#popup').fadeIn();
+      });
+
+      // Function to close popup
+      $('#close-popup').click(function () {
+        $('#popup').fadeOut();
+      });
+
+      // Close popup when clicking outside of it
+      $(document).click(function (e) {
+        if (!$(e.target).closest('#popup').length && !$(e.target).is('#open-popup')) {
+          $('#popup').fadeOut();
+        }
+      });
+
+      // Load special.html into #home and then load Rise.html into #home
+      $("#home").load("special.html", function () {
+        $("#home").append('<div id="homeNoodles"></div>');
+        $("#homeNoodles").load("noodles.html");
+        $("#home").append('<div id="homeRise"></div>');
+        $("#homeRise").load("Rise.html");
+      });
+
+      // Load special.html into #special
+      $("#special").load("special.html");
+
+      // Load noodles.html into #noodles
+      $("#noodles").load("noodles.html");
+
+      // Load Rise.html into #Rise
+      $("#Rise").load("Rise.html");
+    });
+
+    // Fetch and insert footer
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-placeholder').innerHTML = data;
+      });
+
+
+
+    //btn script 
+    document.getElementById('open-instagram').addEventListener('click', function () {
+      //window.open('https://www.instagram.com/hotel_mauli_sinnar/', '_blank');
+    });
+
+    // document.getElementById('open-whatsapp').addEventListener('click', function () {
+    //   let phoneNumber = '+918551896010';
+    //   let message = 'Hye, Hotel Mauli';
+    //   let whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+    //   window.open(whatsappUrl, '_blank');
+    // });
+ 
+    // wp test 
+
+    // WhatsApp button script
+document.getElementById('open-whatsapp').addEventListener('click', function() {
+  let phoneNumber = '+918551896010';
+  let message = 'Hi, Hotel Mauli test msg 1';
+  let whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
+});
+
+
+// Call Amit Nale
+document.querySelector('.callrajesh').addEventListener('click', function() {
+  window.open('tel:+918551896010');
+});
+
+// Call Amit Nale
+document.querySelector('.callyesh').addEventListener('click', function() {
+  window.open('tel:+917767843790');
+});
+
+
+  </script>
+
+</body>
+
+</html>
